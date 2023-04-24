@@ -25,28 +25,26 @@ let target=47;
 console.log(binary(num,target))
 
 // margesort
-function margeSortNum(arr){
-    if(arr.length<2){
+function merge(arr){
+    if(arr.length<= 1){
         return arr
     }
-    let mid=Math.floor(arr.length/2)
-    let leftArr=arr.slice(0,mid)
-    let rightArr=arr.slice(mid)
-    return mergeNum(margeSortNum(leftArr),margeSortNum(rightArr))
+    let middle = Math.floor(arr.length/2)
+    let left = arr.slice(0,middle);
+    let right = arr.slice (middle);
+    return divide(merge(left),merge(right));
+}
+function divide(left,right){
+    let empty = [ ]
+    while(left.length&&right.length){
+        if(left[0]<right[0]){
+            empty.push(left.shift());
+        }
+        else{
+            empty.push(right.shift());
+        }
     }
-    function mergeNum(leftArr,rightArr){
-    let sortedArr=[]
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0]<= rightArr[0]){
-            sortedArr.push(leftArr.shift())
-    }else{
-        sortedArr.push(leftArr.shift())
-    }
-    }
-    [...sortedArr,...leftArr,...rightArr]
-    
-    }
-    let arr=[12,23,43,20,45]
-    let target1=20
-    console.log(margeSortNum(arr))
-    
+    return[...empty,...left,...right];
+}
+let arr = [46,21,31,29,56,40,28];
+console.log(merge(arr));
